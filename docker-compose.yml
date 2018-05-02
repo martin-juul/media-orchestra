@@ -35,11 +35,12 @@ services:
       - CAP_SYS_ADMIN
     environment:
       ENCRYPT_MEDIA: 0
+      RCLONE_CLOUD_ENDPOINT: 'gdrive:'
       PUID: 1000
       PGID: 1000
     volumes:
       - '/mnt/data/media/unionfs:/local-media:shared'
-      - '/mnt/data/media/decrypt:/local-decrypt:shared'
+      - '/mnt/data/media/local:/local-decrypt:shared'
       - '/mnt/data/media/config:/config'
       - '/mnt/data/media/chunks:/chunks'
       - '/mnt/data/media/db:/data/db'
