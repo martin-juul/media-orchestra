@@ -43,7 +43,7 @@ services:
       - '/mnt/data/media/config:/config'
       - '/mnt/data/media/chunks:/chunks'
       - '/mnt/data/media/db:/data/db'
-      - '/mnt/data/media/logs:/data/logs'
+      - '/mnt/data/media/logs:/log'
 
 
   rutorrent:
