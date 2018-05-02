@@ -119,6 +119,19 @@ Setup cron jobs to upload and remove local files:
  - `@daily docker exec <DOCKER_CONTAINER> cloudupload`
  - `@weekly docker exec <DOCKER_CONTAINER> rmlocal`
  
+# Claiming Plex Server
+
+Make an SSH tunnel to your server
+
+```
+ssh username@ip -L 8888:localhost:32400
+```
+
+Go to `http://localhost:8888` to claim and setup your libraries.
+
+# Sonarr & Radarr paths
+
+Point sonarr & radarr to `/unionfs/<directory>`
  
 # Documentation & Credits
 [madslundt/cloud-media-scripts](https://github.com/madslundt/docker-cloud-media-scripts)
