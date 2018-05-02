@@ -81,7 +81,7 @@ services:
       TZ: 'Europe/Copenhagen'
     volumes:
       - '/mnt/data/sonarr/config:/config'
-      - '/mnt/data/media/unionfs:/unionfs'
+      - '/mnt/data/media/unionfs:/unionfs:shared'
       - '/mnt/data/rutorrent/downloads:/downloads'
 
 
@@ -100,7 +100,7 @@ services:
       TZ: 'Europe/Copenhagen'
     volumes:
       - '/mnt/data/radarr/config:/config'
-      - '/mnt/data/media/unionfs:/unionfs'
+      - '/mnt/data/media/unionfs:/unionfs:shared'
       - '/mnt/data/rutorrent/downloads:/downloads'
 
 
@@ -138,6 +138,6 @@ services:
       VERSION: 'latest'
     volumes:
       - '/mnt/data/plex/config:/config'
-      - '/mnt/data/media/unionfs:/unionfs'
+      - '/mnt/data/media/unionfs:/unionfs:shared'
       - '/mnt/data/plex/transcode:/transcode'
     network_mode: 'host'
