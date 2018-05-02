@@ -81,8 +81,8 @@ services:
       TZ: 'Europe/Copenhagen'
     volumes:
       - '/mnt/data/sonarr/config:/config'
-      - '/mnt/data/media/unionfs:/unionfs:shared'
-      - '/mnt/data/rutorrent/downloads:/downloads:shared'
+      - '/mnt/data/media/unionfs:/unionfs'
+      - '/mnt/data/rutorrent/downloads:/downloads'
 
 
   radarr:
@@ -100,8 +100,8 @@ services:
       TZ: 'Europe/Copenhagen'
     volumes:
       - '/mnt/data/radarr/config:/config'
-      - '/mnt/data/media/unionfs:/unionfs:shared'
-      - '/mnt/data/rutorrent/downloads:/downloads:shared'
+      - '/mnt/data/media/unionfs:/unionfs'
+      - '/mnt/data/rutorrent/downloads:/downloads'
 
 
   jackett:
@@ -116,7 +116,7 @@ services:
       TZ: 'Europe/Copenhagen'
     volumes:
       - '/mnt/data/jackett/config:/config'
-      - '/mnt/data/jackett/blackhole:/downloads:shared'
+      - '/mnt/data/jackett/blackhole:/downloads'
 
   plex:
     container_name: 'plex'
@@ -138,6 +138,6 @@ services:
       VERSION: 'latest'
     volumes:
       - '/mnt/data/plex/config:/config'
-      - '/mnt/data/media/unionfs:/unionfs:shared'
+      - '/mnt/data/media/unionfs:/unionfs'
       - '/mnt/data/plex/transcode:/transcode'
     network_mode: 'host'
