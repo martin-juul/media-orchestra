@@ -1,0 +1,142 @@
+version: '2'
+
+services:
+#  proxy:
+#    container_name: 'traefik'
+#    image: traefik:1.5
+#    restart: always
+#    ports:
+#      - '8600:80'
+#    networks:
+#      - proxy
+#    volumes:
+#      - '/var/run/docker.sock:/var/run/docker.sock'
+#      - './traefik.toml:/traefik.toml'
+
+  portainer:
+    image: portainer/portainer:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - '9000:9000'
+    volumes:
+      - './data/portainer:/data'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+
+  media:
+    container_name: 'media'
+    image: madslundt/cloud-media-scripts
+    restart: always
+    privileged: true
+    devices:
+      - /dev/fuse
+    cap_add:
+      - CAP_MKNOD
+      - CAP_SYS_ADMIN
+    environment:
+      ENCRYPT_MEDIA: 0
+      PUID: 501
+      PGID: 20
+    volumes:
+      - './data/media/unionfs:/local-media:shared'
+      - './data/media/decrypt:/local-decrypt:shared'
+      - './data/media/config:/config'
+      - './data/media/chunks:/chunks'
+      - './data/media/db:/data/db'
+      - './data/media/logs:/data/logs'
+
+
+  rutorrent:
+    container_name: 'rutorrent'
+    image: linuxserver/rutorrent:latest
+    restart: always
+    depends_on:
+      - media
+    ports:
+      - '5000:5000'
+      - '51413:51413'
+      - '6881:6881/udp'
+      - '8080:80'
+    environment:
+      PUID: 501
+      PGID: 20
+      TZ: 'Europe/Copenhagen'
+    volumes:
+      - './data/rutorrent/config:/config'
+      - './data/rutorrent/downloads:/downloads'
+
+
+  sonarr:
+    container_name: 'sonarr'
+    image: linuxserver/sonarr:latest
+    restart: always
+    depends_on:
+      - media
+      - rutorrent
+    ports:
+      - '8989:8989'
+    environment:
+      PUID: 501
+      PGID: 20
+      TZ: 'Europe/Copenhagen'
+    volumes:
+      - './data/sonarr/config:/config'
+      - './data/media/unionfs:/tv'
+      - './data/rutorrent/downloads:/downloads'
+
+
+  radarr:
+    container_name: 'radarr'
+    image: linuxserver/radarr:latest
+    restart: always
+    depends_on:
+      - media
+      - rutorrent
+    ports:
+      - '7878:7878'
+    environment:
+      PUID: 501
+      PGID: 20
+      TZ: 'Europe/Copenhagen'
+    volumes:
+      - './data/radarr/config:/config'
+      - './data/media/unionfs:/tv'
+      - './data/rutorrent/downloads:/downloads'
+
+
+  jackett:
+    container_name: 'jacket'
+    image: linuxserver/jackett:latest
+    restart: always
+    ports:
+      - '9117:9117'
+    environment:
+      PUID: 501
+      PGID: 20
+      TZ: 'Europe/Copenhagen'
+    volumes:
+      - './data/jackett/config:/config'
+      - './data/jackett/blackhole:/downloads'
+
+  plex:
+    container_name: 'plex'
+    image: linuxserver/plex:latest
+    restart: always
+    depends_on:
+      - media
+    ports:
+      - '32400:32400'
+      - '32400:32400/udp'
+      - '32469:32469'
+      - '32469:32469/udp'
+      - '5353:5353/udp'
+      - '1900:1900/udp'
+    environment:
+      PUID: 501
+      PGID: 20
+      TZ: 'Europe/Copenhagen'
+      VERSION: 'latest'
+    volumes:
+      - './data/plex/config:/config'
+      - './data/media/unionfs:/unionfs'
+      - './data/plex/transcode:/transcode'
