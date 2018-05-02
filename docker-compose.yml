@@ -35,7 +35,6 @@ services:
       - CAP_SYS_ADMIN
     environment:
       ENCRYPT_MEDIA: 0
-      RCLONE_CLOUD_ENDPOINT: 'gdrive:'
       PUID: 1000
       PGID: 1000
     volumes:
@@ -82,8 +81,8 @@ services:
       TZ: 'Europe/Copenhagen'
     volumes:
       - '/mnt/data/sonarr/config:/config'
-      - '/mnt/data/media/unionfs:/unionfs'
-      - '/mnt/data/rutorrent/downloads:/downloads'
+      - '/mnt/data/media/unionfs:/unionfs:shared'
+      - '/mnt/data/rutorrent/downloads:/downloads:shared'
 
 
   radarr:
@@ -101,8 +100,8 @@ services:
       TZ: 'Europe/Copenhagen'
     volumes:
       - '/mnt/data/radarr/config:/config'
-      - '/mnt/data/media/unionfs:/unionfs'
-      - '/mnt/data/rutorrent/downloads:/downloads'
+      - '/mnt/data/media/unionfs:/unionfs:shared'
+      - '/mnt/data/rutorrent/downloads:/downloads:shared'
 
 
   jackett:
@@ -117,7 +116,7 @@ services:
       TZ: 'Europe/Copenhagen'
     volumes:
       - '/mnt/data/jackett/config:/config'
-      - '/mnt/data/jackett/blackhole:/downloads'
+      - '/mnt/data/jackett/blackhole:/downloads:shared'
 
   plex:
     container_name: 'plex'
@@ -139,5 +138,5 @@ services:
       VERSION: 'latest'
     volumes:
       - '/mnt/data/plex/config:/config'
-      - '/mnt/data/media/unionfs:/unionfs'
+      - '/mnt/data/media/unionfs:/unionfs:shared'
       - '/mnt/data/plex/transcode:/transcode'
