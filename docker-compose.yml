@@ -140,3 +140,4 @@ services:
       - '/mnt/data/plex/config:/config'
       - '/mnt/data/media/unionfs:/unionfs:shared'
       - '/mnt/data/plex/transcode:/transcode'
+    network_mode: 'host'
