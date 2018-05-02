@@ -81,7 +81,7 @@ services:
       TZ: 'Europe/Copenhagen'
     volumes:
       - '/mnt/data/sonarr/config:/config'
-      - '/mnt/data/media/unionfs:/tv'
+      - '/mnt/data/media/unionfs:/unionfs'
       - '/mnt/data/rutorrent/downloads:/downloads'
 
 
@@ -100,7 +100,7 @@ services:
       TZ: 'Europe/Copenhagen'
     volumes:
       - '/mnt/data/radarr/config:/config'
-      - '/mnt/data/media/unionfs:/tv'
+      - '/mnt/data/media/unionfs:/unionfs'
       - '/mnt/data/rutorrent/downloads:/downloads'
 
 
