@@ -10,6 +10,11 @@ A docker-compose file with
 + Radarr
 + Jackett
 
+## General notice!
+
+This project is currently not in a fully working state. I have plans to either resume this, or implement it in another form.
+It can serve as a base for your needs, but you have to dive in and configure it properly. This repository will stay up, and you're more than welcome to make pull requests. I have thought about a modular implementation, but it needs to be properly planned out. I would advise taking inspiration from projects like [cloudbox](https://github.com/Cloudbox/Cloudbox) as it serves as a base for other highly used projects. Though i would advise against Plexguide, as it's a mess.
+
 ## Getting Started
 
 ### Prerequisites
